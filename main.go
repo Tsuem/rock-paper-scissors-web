@@ -6,6 +6,7 @@ import (
 	"log"
 	"myapp/rps"
 	"net/http"
+	"strconv"
 )
 
 // homePage & playRound r handlers, evry web handler always 1)takes an http.ResponseWriter & 2)it takes a pointer to an http.Request
@@ -14,8 +15,8 @@ func homePage(w http.ResponseWriter, r *http.Request) {
 }
 
 func playRound(w http.ResponseWriter, r *http.Request) {
-	//calling the func PlayRound from rps.go
-	result := rps.PlayRound(1)
+	playerChoice, _ := strconv.Atoi(r.URL.Query().Get("c"))
+	result := rps.PlayRound(playerChoice) //calling the func PlayRound from rps.go
 
 	out, err := json.MarshalIndent(result, "", "     ")
 	if err != nil {
