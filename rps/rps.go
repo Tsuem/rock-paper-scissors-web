@@ -14,9 +14,15 @@ const (
 	DRAW         = 3
 )
 
+type Round struct {
+	Winner         int    `json:"winner"`
+	ComputerChoice string `json:"computer_choice"`
+	RoundResult    string `json:"round_result"`
+}
+
 // this func receives playerValue int: the buttons hv da values of 0, 1 & 2 -rsp
 // this func returns 1)int:if it was a tie or who won?, 2)str:da choice, 3)str:who won?
-func PlayRound(playerValue int) (int, string, string) {
+func PlayRound(playerValue int) Round {
 	rand.Seed(time.Now().UnixNano())
 	computerValue := rand.Intn(3) //moved cpu choice to 4 loop, so itz reset each tym thru
 	computerChoice := ""
@@ -47,5 +53,9 @@ func PlayRound(playerValue int) (int, string, string) {
 		winner = COMPUTERWINS
 	}
 
-	return winner, computerChoice, roundResult
+	var result Round
+	result.Winner = winner
+	result.ComputerChoice = computerChoice
+	result.RoundResult = roundResult
+	return result
 }
