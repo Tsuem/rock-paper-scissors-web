@@ -26,14 +26,19 @@
         <br>
         <br>
 
-        <button class="btn btn-outline-primary" onClick="choose(0);">Rock</button>
-        <button class="btn btn-outline-danger" onClick="choose(1);">Paper</button>
-        <button class="btn btn-outline-success" onClick="choose(2);">Scissors</button>
+        <button class="btn btn-outline-primary" onclick="choose(0);">Rock</button>
+        <button class="btn btn-outline-danger" onclick="choose(1)">Paper</button>
+        <button class="btn btn-outline-success" onclick="choose(2)">Scissors</button>
     </div>
-    
 </body>
 <script>
     function choose(x) {
+        fetch("/play?c=" + x)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+            })
+
         if (x == 0) {
             document.getElementById("player_choice").innerHTML = "You clicked rock";
         } else if (x == 1) {
@@ -43,4 +48,5 @@
         }
     }
 </script>
+
 </html>
